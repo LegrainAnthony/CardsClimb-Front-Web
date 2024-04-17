@@ -17,6 +17,7 @@
             />
           </ColorScheme>
         </div>
+        <NuxtPage />
       </template>
       <UButton
         icon="i-heroicons-book-open"
