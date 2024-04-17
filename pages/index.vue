@@ -1,11 +1,27 @@
 <script setup lang="ts">
-const route = useRoute()
+  const route = useRoute()
 </script>
 
 <template>
-  <div>
-    <h1>Nuxt Routing set up successfully!</h1>
-    <p>Current route: {{ route.path }}</p>
-    <a href="https://nuxt.com/docs/getting-started/routing" target="_blank">Learn more about Nuxt Routing</a>
-  </div>
+  <UContainer>
+    <UCard class="mt-10">
+      <template #header>
+        <div class="flex justify-between">
+          <h1>Welcome to Nuxt UI Starter</h1>
+          <ColorScheme>
+            <USelect
+              v-model="$colorMode.preference"
+              :options="['system', 'light', 'dark']"
+            />
+          </ColorScheme>
+        </div>
+      </template>
+      <UButton
+        icon="i-heroicons-book-open"
+        to="https://ui.nuxt.com"
+        target="_blank"
+      >Open Nuxt UI Documentation</UButton>
+      <ExamplesForm class="mt-10" />
+    </UCard>
+  </UContainer>
 </template>
