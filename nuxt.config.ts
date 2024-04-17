@@ -3,7 +3,15 @@ export default defineNuxtConfig({
   devtools: {
     enabled: true,
   },
-  modules: ['@nuxtjs/i18n', '@vueuse/nuxt', '@vee-validate/nuxt', '@nuxt/ui'],
+  modules: [
+    '@nuxtjs/i18n', 
+    '@vueuse/nuxt', 
+    '@vee-validate/nuxt', 
+    '@nuxt/ui', 
+    '@nuxt/image',
+    '@nuxt/fonts',
+    'nuxt-og-image',
+  ],
   i18n: {
     locales: [
       {
@@ -16,8 +24,4 @@ export default defineNuxtConfig({
     langDir: 'locales',
     defaultLocale: 'fr',
   },
-  // veeValidate: {
-  //   // disable or enable auto imports
-  //   autoImports: true,
-  // },
 });
