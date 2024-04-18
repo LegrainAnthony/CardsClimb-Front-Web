@@ -10,7 +10,6 @@
     }
   })
   const emit = defineEmits(['update:menu'])
-  const hnav = ref(true)
 
   const colorMode = useColorMode()
 
