@@ -1,13 +1,13 @@
+<script lang="ts" setup>
+  definePageMeta({
+    layout: 'auth'
+  })
+</script>
+
 <template>
   <div>
-    
+
   </div>
 </template>
 
-<script lang="ts" setup>
-
-</script>
-
-<style>
-
-</style>
+<style></style>
