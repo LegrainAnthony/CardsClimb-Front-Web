@@ -5,7 +5,7 @@
   })
 </script>
 <template>
-  <UContainer>
+  <NuxtLayout>
     <NuxtPage />
-  </UContainer>
+  </NuxtLayout>
 </template>
