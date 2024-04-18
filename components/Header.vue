@@ -33,33 +33,7 @@
           Card<span class="text-primary">Climb</span>
         </span>
       </NuxtLink>
-      <ul
-        v-if="!hnav"
-        class="hidden lg:flex justify-around gap-x-8"
-      >
-        <li class="relative">
-          <NuxtLink
-            class="text-sm/6 font-semibold flex items-center gap-1 hover:text-primary"
-            to="/cards"
-          >
-            Cards
-          </NuxtLink>
-        </li>
-        <NuxtLink
-          class="text-sm/6 font-semibold flex items-center gap-1 hover:text-primary"
-          to="/blitz"
-        >
-          Blitz
-        </NuxtLink>
-        <NuxtLink
-          class="text-sm/6 font-semibold flex items-center gap-1 hover:text-primary"
-          to="/profile"
-        >
-          Profile
-        </NuxtLink>
-      </ul>
       <UHorizontalNavigation
-        v-else
         class="hidden lg:flex justify-around gap-x-8"
         :links="links"
       />
