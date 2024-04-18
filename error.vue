@@ -26,7 +26,7 @@
 
 <template>
   <div>
-    <main class="min-h-[100vh]">
+    <main class="h-screen">
 
       <UContainer>
         <div class="min-h-[100vh] flex flex-col items-center justify-center">
