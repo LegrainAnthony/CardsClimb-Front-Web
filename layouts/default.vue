@@ -1,26 +1,26 @@
 <script lang="ts" setup>
-  const open = ref(false)
+  const { open, close, getState } = useOpen()
 
   // pour fermer le menu au click
   const click = () => {
-    open.value = false
+    close()
   }
   const links = [
     {
       label: 'Cards',
-      icon: 'i-heroicons-inbox-stack',
+      icon: 'i-heroicons-inbox-stack-20-solid',
       to: '/cards',
       click
     },
     {
       label: 'Blitz',
-      icon: 'i-heroicons-bolt-solid',
+      icon: 'i-heroicons-bolt-20-solid',
       to: '/blitz',
       click
     },
     {
       label: 'Profile',
-      icon: 'i-heroicons-user',
+      icon: 'i-heroicons-user-20-solid',
       to: '/profile',
       click
     }
@@ -29,14 +29,15 @@
 <template>
   <div>
     <Header
-      :props-open="open"
+      :props-open="getState()"
       :links=links
-      @update:menu="open = $event"
+      @close="close()"
+      @open="open()"
     />
 
     <UContainer>
       <div
-        v-if=open
+        v-if=getState()
         class="px-4 sm:px-6 pt-3 lg:hidden"
       >
         <UVerticalNavigation
@@ -47,10 +48,10 @@
         <UButton
           block
           to="/signup"
-          @click="click()"
+          @click="close()"
         >Sign Up</UButton>
       </div>
-      <div :class="open ? 'hidden lg:block ' : 'lg:block'">
+      <div :class="getState() ? 'hidden lg:block ' : 'lg:block'">
         <slot />
       </div>
 

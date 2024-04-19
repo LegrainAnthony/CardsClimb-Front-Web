@@ -9,7 +9,7 @@
       required: true
     }
   })
-  const emit = defineEmits(['update:menu'])
+  const emit = defineEmits(['close', 'open'])
 
   const colorMode = useColorMode()
 
@@ -23,6 +23,7 @@
       <NuxtLink
         to="/"
         class="lg:flex-1 flex items-center gap-1.5"
+        @click="emit('close')"
       >
         <UIcon
           class="w-7 h-7 lg:w-10 lg:h-10 flex-shrink-0 text-primary"
@@ -62,7 +63,7 @@
         <UButton
           color="white"
           to="/login"
-          @click="emit('update:menu', false)"
+          @click="emit('close')"
         >
           Sign in
         </UButton>
@@ -82,7 +83,7 @@
             rounded: 'rounded-full'
           }"
           :icon="!propsOpen ? 'i-heroicons-bars-3-20-solid' : 'i-heroicons-x-mark-20-solid'"
-          @click="emit('update:menu', !propsOpen)"
+          @click="propsOpen ? emit('close') : emit('open')"
         />
       </div>
     </UContainer>
