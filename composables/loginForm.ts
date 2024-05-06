@@ -1,13 +1,13 @@
 import { ref } from "vue";
 import { useForm, useField, defineRule, ErrorMessage } from "vee-validate";
-import { required, email, min } from "@vee-validate/rules";
+// import { required, email, min } from "@vee-validate/rules";
 import { useNuxtApp } from "#app";
 
-export function useLoginForm() {
-  defineRule("required", required);
-  defineRule("email", email);
-  defineRule("min", min);
+// defineRule("required", required);
+// defineRule("email", email);
+// defineRule("min", min);
 
+export function useLoginForm() {
   const { handleSubmit, isSubmitting, errors } = useForm();
 
   const { value: email, errorMessage: emailError } = useField(
@@ -26,6 +26,8 @@ export function useLoginForm() {
       const response = await $axios.$post("/api/login", values);
     } catch (e) {
       console.error(e);
+
+      errors.value = "Une erreur s'est produite. Veuillez réessayer.";
     }
   });
 
