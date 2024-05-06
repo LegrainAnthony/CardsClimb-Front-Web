@@ -18,7 +18,7 @@ export function useAuth() {
 
     watch(status, () => {
       if (status.value === "success" && data.value) {
-        localStorage.setItem("accessToken", data.value.accessToken);
+        storeTokens(data.value.accessToken, data.value.refreshToken);
         router.push("/");
       }
     });
@@ -31,6 +31,7 @@ export function useAuth() {
 
     const { data, error, execute } = await useCardClimbApi<{
       accessToken: string;
+      refreshToken: string;
     }>(`http://localhost:8080${AUTHENTICATION_REFRESH_API_URL}`, {
       immediate: false,
       method: "POST",
@@ -40,11 +41,16 @@ export function useAuth() {
 
     watch(data, () => {
       if (data.value) {
-        localStorage.setItem("accessToken", data.value.accessToken);
+        storeTokens(data.value.accessToken, data.value.refreshToken);
       }
     });
 
     return { data, error, execute };
+  };
+
+  const storeTokens = (accessToken: string, refreshToken: string) => {
+    localStorage.setItem("accessToken", accessToken);
+    localStorage.setItem("refreshToken", refreshToken);
   };
 
   return { signup, signin, refreshToken };
