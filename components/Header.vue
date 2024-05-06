@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+
 defineProps({
   propsOpen: {
     type: Boolean,
@@ -11,6 +12,7 @@ defineProps({
 });
 const emit = defineEmits(["update:menu"]);
 
+
 const colorMode = useColorMode();
 
 const switchColorMode = () =>
@@ -22,6 +24,7 @@ const switchColorMode = () =>
     class="bg-background/75 backdrop-blur border-b border-gray-200 dark:border-gray-800 -mb-px sticky top-0 z-50"
   >
     <UContainer class="flex items-center justify-between gap-3 h-16">
+
       <NuxtLink to="/" class="lg:flex-1 flex items-center gap-1.5">
         <UIcon
           class="w-7 h-7 lg:w-10 lg:h-10 flex-shrink-0 text-primary"
@@ -54,7 +57,9 @@ const switchColorMode = () =>
             <Icon v-else name="i-heroicons-sun-20-solid" class="text-xl" />
           </ColorScheme>
         </UButton>
+
         <UButton color="white" to="/login" @click="emit('update:menu', false)">
+
           Sign in
         </UButton>
         <UButton class="hidden lg:flex" color="black" to="/signup">
@@ -74,6 +79,7 @@ const switchColorMode = () =>
               : 'i-heroicons-x-mark-20-solid'
           "
           @click="emit('update:menu', !propsOpen)"
+
         />
       </div>
     </UContainer>
