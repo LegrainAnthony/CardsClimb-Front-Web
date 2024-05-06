@@ -20,8 +20,6 @@ export default defineNuxtRouteMiddleware(async (to) => {
       const { execute, data: tokens } = await refreshToken();
       await execute();
 
-      console.log(to.path);
-
       if (tokens.value) {
         await fetchUser();
         return navigateTo(to.path);
