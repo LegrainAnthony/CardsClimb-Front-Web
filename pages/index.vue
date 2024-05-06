@@ -1,7 +1,8 @@
 <script setup lang="ts">
-  definePageMeta({
-    layout: 'default'
-  })
+definePageMeta({
+  name: "home",
+  layout: "default",
+});
 </script>
 
 <template>
@@ -21,7 +22,8 @@
       icon="i-heroicons-book-open"
       to="https://ui.nuxt.com"
       target="_blank"
-    >Open Nuxt UI Documentation</UButton>
+      >Open Nuxt UI Documentation</UButton
+    >
     <ExamplesForm class="mt-10" />
   </UCard>
 </template>
