@@ -1,14 +1,13 @@
 <script setup lang="ts">
-  useHead({
-    bodyAttrs: {
-      class: 'dark:bg-gray-950'
-    }
-  })
+useHead({
+  bodyAttrs: {
+    class: "dark:bg-gray-950",
+  },
+});
 </script>
 
 <template>
-  <UContainer class="h-screen flex items-center justify-center ">
-
+  <UContainer class="h-screen flex items-center justify-center">
     <UButton
       icon="i-heroicons-home"
       label="Home"
