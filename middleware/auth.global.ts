@@ -14,7 +14,8 @@ export default defineNuxtRouteMiddleware(async (to) => {
     if (
       error.value &&
       error.value.statusCode === 401 &&
-      localStorage.getItem("accessToken")
+      localStorage.getItem("accessToken") &&
+      localStorage.getItem("refreshToken")
     ) {
       const { execute, data: tokens } = await refreshToken();
       await execute();

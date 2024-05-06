@@ -6,7 +6,7 @@ export const AUTHENTICATION_REFRESH_API_URL = "/authentication/refresh-tokens";
 
 export function useCardClimbApi<T>(
   url: string | ComputedRef<string>,
-  options: UseFetchOptions<T> = {},
+  options: UseFetchOptions<T> = {}
 ) {
   const defaultOptions: UseFetchOptions<T> = {
     headers: {
