@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import { definePageMeta } from "#imports";
-import { useLoginForm } from "@/composables/loginForm";
-
 definePageMeta({
   layout: "auth",
 });
@@ -38,11 +35,7 @@ const handleLogin = () => {
           v-model="password"
         />
       </div>
-      <!-- <NuxtLink
-        to="/forgot-password"
-        class="self-end mb-4 text-sm text-blue-500"
-        >Forgot password?</NuxtLink
-      > -->
+
       <UButton block class="" @click="handleLogin">Continue</UButton>
       <p class="text-xs text-center">
         By signing in, you agree to our
