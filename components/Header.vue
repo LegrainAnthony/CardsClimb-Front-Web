@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-
 defineProps({
   propsOpen: {
     type: Boolean,
@@ -11,12 +10,18 @@ defineProps({
   },
 });
 const emit = defineEmits(["update:menu"]);
-
+const { isAuthenticated, signout } = useAuth();
+const router = useRouter();
 
 const colorMode = useColorMode();
 
 const switchColorMode = () =>
   (colorMode.preference = colorMode.value === "light" ? "dark" : "light");
+
+const handleSignout = async () => {
+  await signout();
+  router.push("/login");
+};
 </script>
 
 <template>
@@ -24,7 +29,6 @@ const switchColorMode = () =>
     class="bg-background/75 backdrop-blur border-b border-gray-200 dark:border-gray-800 -mb-px sticky top-0 z-50"
   >
     <UContainer class="flex items-center justify-between gap-3 h-16">
-
       <NuxtLink to="/" class="lg:flex-1 flex items-center gap-1.5">
         <UIcon
           class="w-7 h-7 lg:w-10 lg:h-10 flex-shrink-0 text-primary"
@@ -58,12 +62,30 @@ const switchColorMode = () =>
           </ColorScheme>
         </UButton>
 
-        <UButton color="white" to="/login" @click="emit('update:menu', false)">
-
+        <UButton
+          v-if="!isAuthenticated()"
+          color="white"
+          to="/login"
+          @click="emit('update:menu', false)"
+        >
           Sign in
         </UButton>
-        <UButton class="hidden lg:flex" color="black" to="/signup">
+        <UButton
+          v-if="!isAuthenticated()"
+          class="hidden lg:flex"
+          color="black"
+          to="/signup"
+        >
           Sign up
+        </UButton>
+        <UButton
+          v-if="isAuthenticated()"
+          class="hidden lg:flex"
+          color="red"
+          to="/login"
+          @click="handleSignout()"
+        >
+          Sign out
         </UButton>
         <UButton
           class="lg:hidden"
@@ -79,7 +101,6 @@ const switchColorMode = () =>
               : 'i-heroicons-x-mark-20-solid'
           "
           @click="emit('update:menu', !propsOpen)"
-
         />
       </div>
     </UContainer>
