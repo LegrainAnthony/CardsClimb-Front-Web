@@ -21,7 +21,6 @@ export default defineNuxtRouteMiddleware(async (to) => {
 
       if (tokens.value) {
         storeTokens(tokens.value.accessToken, tokens.value.refreshToken);
-        await fetchUser();
         return navigateTo(to.path);
       }
     }
