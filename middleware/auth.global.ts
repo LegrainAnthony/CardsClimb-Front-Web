@@ -1,5 +1,5 @@
 import { useAuth } from "~/composables/useAuth";
-const { refreshToken } = useAuth();
+const { refreshToken, storeTokens } = useAuth();
 
 export default defineNuxtRouteMiddleware(async (to) => {
   const { getCurrentUser } = useMe();
@@ -17,10 +17,10 @@ export default defineNuxtRouteMiddleware(async (to) => {
       localStorage.getItem("accessToken") &&
       localStorage.getItem("refreshToken")
     ) {
-      const { execute, data: tokens } = await refreshToken();
-      await execute();
+      const { data: tokens } = await refreshToken();
 
       if (tokens.value) {
+        storeTokens(tokens.value.accessToken, tokens.value.refreshToken);
         await fetchUser();
         return navigateTo(to.path);
       }
