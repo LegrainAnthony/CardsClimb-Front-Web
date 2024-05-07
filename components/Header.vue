@@ -11,11 +11,17 @@ defineProps({
 });
 const emit = defineEmits(["update:menu"]);
 const { isAuthenticated, signout } = useAuth();
+const router = useRouter();
 
 const colorMode = useColorMode();
 
 const switchColorMode = () =>
   (colorMode.preference = colorMode.value === "light" ? "dark" : "light");
+
+const handleSignout = async () => {
+  await signout();
+  router.push("/login");
+};
 </script>
 
 <template>
@@ -77,7 +83,7 @@ const switchColorMode = () =>
           class="hidden lg:flex"
           color="red"
           to="/login"
-          @click="signout()"
+          @click="handleSignout()"
         >
           Sign out
         </UButton>
