@@ -1,4 +1,9 @@
 <script setup lang="ts">
+  definePageMeta({
+    name: "home",
+    layout: "default",
+  });
+
   const isConnected = ref(false)
 
   const { t } = useI18n()
