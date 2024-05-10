@@ -1,6 +1,7 @@
 import type { UseFetchOptions } from "#app";
 
 export const AUTHENTICATION_LOGIN_API_URL = "/authentication/sign-in";
+export const AUTHENTICATION_LOGOUT_API_URL = "/authentication/sign-out";
 export const AUTHENTICATION_CURRENT_API_URL = "/authentication/current";
 export const AUTHENTICATION_REFRESH_API_URL = "/authentication/refresh-tokens";
 
@@ -19,6 +20,10 @@ export function useCardClimbApi<T>(
       if (!token) return;
 
       headers.set("Authorization", `Bearer ${token}`);
+      headers.set(
+        "RefreshToken",
+        `Bearer ${localStorage.getItem("refreshToken")}`
+      );
 
       options.headers = headers;
     },

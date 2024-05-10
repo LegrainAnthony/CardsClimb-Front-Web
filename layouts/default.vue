@@ -48,13 +48,12 @@
         <UButton
           block
           to="/signup"
-          @click="close()"
+          @click="click()"
         >Sign Up</UButton>
       </div>
-      <div :class="getState() ? 'hidden lg:block ' : 'lg:block'">
+      <!-- <div :class="getState() ? 'hidden lg:block ' : 'lg:block'">
         <slot />
-      </div>
-
+      </div> -->
     </UContainer>
 
   </div>
