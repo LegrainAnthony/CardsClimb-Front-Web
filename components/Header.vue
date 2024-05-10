@@ -1,20 +1,29 @@
 <script lang="ts" setup>
+  import type { HorizontalNavigationLink } from '#ui/types'
+
   defineProps({
     propsOpen: {
       type: Boolean,
       required: true,
     },
     links: {
-      type: Array,
-      required: true
-    }
-  })
-  const emit = defineEmits(['close', 'open'])
+      type: Array<HorizontalNavigationLink>,
+      required: true,
+    },
+  });
+  const emit = defineEmits(["close", "open"]);
+  const { isAuthenticated, signout } = useAuth();
+  const router = useRouter();
 
-  const colorMode = useColorMode()
+  const colorMode = useColorMode();
 
-  const switchColorMode = () => (colorMode.preference = (colorMode.value === 'light' ? 'dark' : 'light'))
+  const switchColorMode = () =>
+    (colorMode.preference = colorMode.value === "light" ? "dark" : "light");
 
+  const handleSignout = async () => {
+    await signout();
+    router.push("/login");
+  };
 </script>
 
 <template>
@@ -68,11 +77,21 @@
           Sign in
         </UButton>
         <UButton
+          v-if="!isAuthenticated()"
           class="hidden lg:flex"
           color="black"
           to="/signup"
         >
           Sign up
+        </UButton>
+        <UButton
+          v-if="isAuthenticated()"
+          class="hidden lg:flex"
+          color="red"
+          to="/login"
+          @click="handleSignout()"
+        >
+          Sign out
         </UButton>
         <UButton
           class="lg:hidden"

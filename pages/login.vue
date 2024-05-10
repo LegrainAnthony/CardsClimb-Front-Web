@@ -9,8 +9,10 @@ definePageMeta({
 const email = ref<string>("");
 const password = ref<string>("");
 
-const { signin } = useAuth();
-const { execute, error } = await signin(email, password);
+const { signin, storeTokens } = useAuth();
+const { data, execute, error, status } = await signin(email, password);
+
+const router = useRouter();
 
 // Minimum eight characters, at least one letter, one number and one special character:
 const passwordRegex = new RegExp(
@@ -30,6 +32,11 @@ const schema = object({
 
 const handleLogin = async () => {
   await execute();
+
+  if (status.value === "success" && data.value) {
+    storeTokens(data.value.accessToken, data.value.refreshToken);
+    router.push("/");
+  }
 };
 </script>
 
