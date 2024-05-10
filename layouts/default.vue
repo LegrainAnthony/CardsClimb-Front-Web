@@ -31,8 +31,7 @@
     <Header
       :props-open="getState()"
       :links=links
-      @close="close()"
-      @open="open()"
+      @update:menu="$event == false ? close() : open()"
     />
 
     <UContainer>
@@ -51,9 +50,9 @@
           @click="click()"
         >Sign Up</UButton>
       </div>
-      <!-- <div :class="getState() ? 'hidden lg:block ' : 'lg:block'">
+      <div :class="getState() ? 'hidden lg:block ' : 'lg:block'">
         <slot />
-      </div> -->
+      </div>
     </UContainer>
 
   </div>

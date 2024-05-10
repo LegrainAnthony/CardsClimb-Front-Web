@@ -9,16 +9,18 @@
       required: true
     }
   })
+
+  const { t } = useI18n()
 </script>
 
 <template>
-  <CardsSectionTitle title="Gérer mes cartes">
+  <CardsSectionTitle :title="t('cardTitle')">
     <UButton
       class="lg:text-sm lg:py-1.5 lg:px-2.5 lg:gap-x-1.5"
       size="2xs"
       icon="i-heroicons-plus"
       to="/cards/create"
-    >Ajouter un carte</UButton>
+    >{{ t('addCard') }}</UButton>
   </CardsSectionTitle>
   <UTable
     :empty-state="{ icon: 'i-heroicons-circle-stack-20-solid', label: 'No items.' }"

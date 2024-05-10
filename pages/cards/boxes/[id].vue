@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 
   const route = useRoute()
-
+  const { t } = useI18n()
 
   const { getBoxWithSteps } = useBox()
   const { data, execute } = await getBoxWithSteps(parseInt(route.params.id as string))
@@ -12,10 +12,10 @@
 
   const interval = (interval: number) => {
     if (interval >= 30)
-      return `${useMath('floor', interval / 30).value} mois`
+      return t('month', [useMath('floor', interval / 30).value])
     if (interval >= 7)
-      return useMath('floor', interval / 7).value > 1 ? `${useMath('floor', interval / 7).value} semaines` : '1 semaine'
-    return interval > 1 ? `${interval} jours` : '1 jour'
+      return useMath('floor', interval / 7).value > 1 ? t('week', [useMath('floor', interval / 7).value], 2) : t('week')
+    return interval > 1 ? t('day', [interval], 2) : t('day')
   }
 </script>
 
@@ -30,14 +30,14 @@
         size="2xs"
         icon="i-heroicons-pencil"
         :to="`/cards/boxes/${$route.params.id}/edit`"
-      >Editer</UButton>
+      >{{ t('edit') }}</UButton>
     </CardsSectionTitle>
 
     <UAccordion
       :items="items"
       multiple
     >
-      <template #default="{ item, index, open }">
+      <template #default="{ item, open }">
         <UButton
           variant="solid"
           class="border-gray-200 dark:border-gray-700 mb-1.5"
