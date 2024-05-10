@@ -10,7 +10,7 @@
 <template>
   <UButton
     class="lg:text-sm lg:py-1.5 lg:px-2.5 lg:gap-x-1.5"
-    size="xs"
+    size="2xs"
     variant="ghost"
     icon="i-heroicons-arrow-left"
     :to="backTo"
