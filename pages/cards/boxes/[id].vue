@@ -2,10 +2,9 @@
 
   const route = useRoute()
 
+
   const { getBoxWithSteps } = useBox()
   const { data, execute } = await getBoxWithSteps(parseInt(route.params.id as string))
-
-
 
   execute()
 
@@ -13,34 +12,35 @@
 
   const interval = (interval: number) => {
     if (interval >= 30)
-      return `${Math.floor(interval / 30)} mois`
+      return `${useMath('floor', interval / 30).value} mois`
     if (interval >= 7)
-      return Math.floor(interval / 7) > 1 ? `${Math.floor(interval / 7)} semaine(s)` : '1 semaine'
-    return interval > 1 ? `${interval} jour(s)` : '1 jour'
+      return useMath('floor', interval / 7).value > 1 ? `${useMath('floor', interval / 7).value} semaines` : '1 semaine'
+    return interval > 1 ? `${interval} jours` : '1 jour'
   }
 </script>
 
 <template>
   <div>
-    <div class="flex items-center mb-3">
+    <CardsSectionTitle
+      :title="data?.name ?? ''"
+      back-to="/cards"
+    >
       <UButton
         class="lg:text-sm lg:py-1.5 lg:px-2.5 lg:gap-x-1.5"
-        size="xs"
-        variant="ghost"
-        icon="i-heroicons-arrow-left"
-        to="/cards"
-      ></UButton>
-      <h1 class="lg:text-lg font-medium text-gray-500 dark:text-gray-400">{{ data?.name ?? null }}</h1>
-    </div>
+        size="2xs"
+        icon="i-heroicons-pencil"
+        :to="`/cards/boxes/${$route.params.id}/edit`"
+      >Editer</UButton>
+    </CardsSectionTitle>
+
     <UAccordion
       :items="items"
-      variant="solid"
       multiple
     >
       <template #default="{ item, index, open }">
         <UButton
           variant="solid"
-          class="border-b border-gray-200 dark:border-gray-700 mb-1.5"
+          class="border-gray-200 dark:border-gray-700 mb-1.5"
         >
           <template #leading>
             <UBadge
@@ -48,7 +48,10 @@
               variant=solid
               size="xs"
               :ui="{ rounded: 'rounded-full' }"
-            ><span>{{ useMax(Object.keys(item.content).length - index, 0) }}</span></UBadge>
+            >
+              <!--TODO remplacer par le nombre de cartes-->
+              <span>{{ useMath('trunc', useMath('random').value * 10) }}</span>
+            </UBadge>
           </template>
 
           <span class="truncate">{{ interval(parseInt(item.label)) }}</span>

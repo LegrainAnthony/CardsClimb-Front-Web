@@ -1,10 +1,11 @@
 <script lang="ts" setup>
+
 </script>
 
 <template>
   <div>
     <CardsSectionTitle
-      :title="`Card ${$route.params.id}`"
+      title="Création d'une boite"
       back-to="/cards"
     >
     </CardsSectionTitle>
