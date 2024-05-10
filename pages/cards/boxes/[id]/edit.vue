@@ -1,15 +1,15 @@
-<script lang="ts" setup>
-
-</script>
-
 <template>
   <div>
     <CardsSectionTitle
-      title="Création d'une carte"
+      :title="`Edition de la boite ${$route.params.id}`"
       back-to="/cards"
     >
     </CardsSectionTitle>
   </div>
 </template>
+
+<script lang="ts" setup>
+
+</script>
 
 <style></style>
