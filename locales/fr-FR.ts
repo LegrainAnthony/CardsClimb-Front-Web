@@ -9,5 +9,6 @@ export default defineI18nLocale(async (locale) => {
     review: 'Réviser',
     profile: 'Profile',
     blitz: 'Blitz',
+    seeCards: 'Voir mes cartes',
   };
 });

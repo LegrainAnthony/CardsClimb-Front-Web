@@ -47,10 +47,7 @@
       </div>
       <div class="flex items-center justify-center gap-x-6 lg:gap-x-16">
         <NuxtLink to="/cards">
-          <UIcon
-            class="w-36 h-36 lg:w-48 lg:h-48 shrink"
-            name="i-heroicons-document-arrow-down"
-          />
+          <CardImage />
         </NuxtLink>
         <div class="flex flex-col items-center gap-y-4">
           <UButton
