@@ -10,5 +10,8 @@ export default defineI18nLocale(async (locale) => {
     profile: 'Profile',
     blitz: 'Blitz',
     seeCards: 'Voir mes cartes',
+    signIn: 'Sign in',
+    signOut: 'Sign out',
+    signUp: 'Sign up',
   };
 });

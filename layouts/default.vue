@@ -1,5 +1,13 @@
 <script lang="ts" setup>
   const { open, close, getState } = useOpen()
+  const { t } = useI18n()
+
+  const router = useRouter();
+  const { isAuthenticated, signout } = useAuth();
+  const handleSignout = async () => {
+    await signout();
+    router.push("/login");
+  };
 
   // pour fermer le menu au click
   const click = () => {
@@ -26,13 +34,15 @@
     }
   ]
 </script>
+
 <template>
   <div>
     <Header
       :props-open="getState()"
       :links=links
-      @close="close()"
-      @open="open()"
+      :is-authenticated="isAuthenticated()"
+      @open="$event == false ? close() : open()"
+      @sign-out="handleSignout()"
     />
 
     <UContainer>
@@ -46,15 +56,22 @@
         />
         <UDivider class="mb-4" />
         <UButton
+          color="white"
           block
+          to="/login"
+          @click="click()"
+        >{{ isAuthenticated() ? t('signOut') : t('signIn') }}</UButton>
+        <UButton
+          v-if="!isAuthenticated()"
+          block
+          color="primary"
           to="/signup"
           @click="click()"
-        >Sign Up</UButton>
+        >{{ t('signUp') }}</UButton>
       </div>
-      <!-- <div :class="getState() ? 'hidden lg:block ' : 'lg:block'">
+      <div :class="getState() ? 'hidden lg:block ' : 'lg:block'">
         <slot />
-      </div> -->
+      </div>
     </UContainer>
-
   </div>
 </template>

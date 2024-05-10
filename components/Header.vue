@@ -10,20 +10,18 @@
       type: Array<HorizontalNavigationLink>,
       required: true,
     },
+    isAuthenticated: {
+      type: Boolean,
+      required: true
+    }
   });
-  const emit = defineEmits(["close", "open"]);
-  const { isAuthenticated, signout } = useAuth();
-  const router = useRouter();
 
+  const emit = defineEmits(["open", "sign-out"])
+  const { t } = useI18n()
   const colorMode = useColorMode();
 
   const switchColorMode = () =>
     (colorMode.preference = colorMode.value === "light" ? "dark" : "light");
-
-  const handleSignout = async () => {
-    await signout();
-    router.push("/login");
-  };
 </script>
 
 <template>
@@ -32,7 +30,7 @@
       <NuxtLink
         to="/"
         class="lg:flex-1 flex items-center gap-1.5"
-        @click="emit('close')"
+        @click="emit('open', false)"
       >
         <UIcon
           class="w-7 h-7 lg:w-10 lg:h-10 flex-shrink-0 text-primary"
@@ -52,7 +50,10 @@
           variant="ghost"
           color="gray"
           :ui="{
-            rounded: 'rounded-full'
+            rounded: 'rounded-full',
+            padding: {
+              md: 'p-1.5'
+            }
           }"
           @click="switchColorMode()"
         >
@@ -70,28 +71,20 @@
           </ColorScheme>
         </UButton>
         <UButton
+          class="hidden lg:flex"
           color="white"
           to="/login"
-          @click="emit('close')"
+          @click="isAuthenticated ? emit('sign-out') : emit('open', false)"
         >
-          Sign in
+          {{ isAuthenticated ? t('signOut') : t('signIn') }}
         </UButton>
         <UButton
-          v-if="!isAuthenticated()"
+          v-if="!isAuthenticated"
           class="hidden lg:flex"
-          color="black"
+          color="primary"
           to="/signup"
         >
-          Sign up
-        </UButton>
-        <UButton
-          v-if="isAuthenticated()"
-          class="hidden lg:flex"
-          color="red"
-          to="/login"
-          @click="handleSignout()"
-        >
-          Sign out
+          {{ t('signUp') }}
         </UButton>
         <UButton
           class="lg:hidden"
@@ -99,10 +92,13 @@
           variant="ghost"
           color="gray"
           :ui="{
-            rounded: 'rounded-full'
+            rounded: 'rounded-full',
+            padding: {
+              md: 'p-1.5'
+            }
           }"
           :icon="!propsOpen ? 'i-heroicons-bars-3-20-solid' : 'i-heroicons-x-mark-20-solid'"
-          @click="propsOpen ? emit('close') : emit('open')"
+          @click="propsOpen ? emit('open', false) : emit('open', true)"
         />
       </div>
     </UContainer>
