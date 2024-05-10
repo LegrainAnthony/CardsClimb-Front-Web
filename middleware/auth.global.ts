@@ -13,7 +13,7 @@ export default defineNuxtRouteMiddleware(async (to) => {
   if (!current.value && to.path !== "/login") {
     if (
       error.value &&
-      error.value.statusCode === 401 &&
+      error.value.statusCode === 498 &&
       localStorage.getItem("accessToken") &&
       localStorage.getItem("refreshToken")
     ) {
