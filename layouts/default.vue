@@ -59,7 +59,7 @@
           color="white"
           block
           to="/login"
-          @click="click()"
+          @click="isAuthenticated() ? handleSignout() : click()"
         >{{ isAuthenticated() ? t('signOut') : t('signIn') }}</UButton>
         <UButton
           v-if="!isAuthenticated()"
