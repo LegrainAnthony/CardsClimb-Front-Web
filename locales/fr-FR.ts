@@ -7,6 +7,7 @@ export default defineI18nLocale(async (locale) => {
     box: 'Boîte',
     step: 'Étape',
     type: 'Type',
+    tag: 'Label',
     addBox: 'Ajouter une boîte',
     boxTitle: 'Mes boîtes de révision',
     addCard: 'Ajouter une carte',
