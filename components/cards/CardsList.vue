@@ -12,15 +12,14 @@
 </script>
 
 <template>
-  <div class="flex justify-between">
-    <h1 class="lg:text-lg font-medium text-gray-500 dark:text-gray-400">Gérer mes cartes</h1>
+  <CardsSectionTitle title="Gérer mes cartes">
     <UButton
       class="lg:text-sm lg:py-1.5 lg:px-2.5 lg:gap-x-1.5"
       size="2xs"
-      icon="i-heroicons-pencil-square"
+      icon="i-heroicons-plus"
       to="/cards/create"
     >Ajouter un carte</UButton>
-  </div>
+  </CardsSectionTitle>
   <UTable
     :empty-state="{ icon: 'i-heroicons-circle-stack-20-solid', label: 'No items.' }"
     class="mt-3"
