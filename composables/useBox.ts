@@ -21,7 +21,7 @@ export const useBox = () => {
 
   const getBoxWithSteps = async (id: number) => {
     const { data, pending, error, execute } = await useCardClimbApi<Box>(
-      `http://localhost:8080/boxes/test/${id}`,
+      `http://localhost:8080/boxes/box-with-steps/${id}`,
       {}
     );
     return { data, pending, error, execute };

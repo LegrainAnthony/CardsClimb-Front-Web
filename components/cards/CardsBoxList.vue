@@ -5,16 +5,18 @@
       default: [],
     },
   })
+
+  const { t } = useI18n()
 </script>
 
 <template>
-  <CardsSectionTitle title="Mes boites de révision">
+  <CardsSectionTitle :title="t('boxTitle')">
     <UButton
       class="lg:text-sm lg:py-1.5 lg:px-2.5 lg:gap-x-1.5"
       size="2xs"
       icon="i-heroicons-plus"
       to="/cards/boxes/create"
-    >Ajouter un boite</UButton>
+    >{{ t('addBox') }}</UButton>
   </CardsSectionTitle>
   <div class="flex flex-nowrap  gap-x-3 mt-3 overflow-y-auto p-2">
     <NuxtLink

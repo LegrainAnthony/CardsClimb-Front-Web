@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+  const { t } = useI18n()
 
   const { getBoxes } = useBox();
   const { data: boxes, execute: executeBoxes } = await getBoxes()
@@ -16,19 +17,19 @@
     },
     {
       key: 'reference',
-      label: 'Reference'
+      label: t('reference')
     },
     {
       key: 'box_id',
-      label: 'Box'
+      label: t('box')
     },
     {
       key: 'box_step_id',
-      label: 'Step'
+      label: t('step')
     },
     {
       key: 'card_type_id',
-      label: 'Type'
+      label: t('type')
     },
   ]
 </script>
