@@ -1,14 +1,37 @@
 <script lang="ts" setup>
-
   const route = useRoute()
   const { t } = useI18n()
 
   const { getBoxWithSteps } = useBox()
-  const { data, execute } = await getBoxWithSteps(parseInt(route.params.id as string))
+  const { data, execute: executeBoxes } = await getBoxWithSteps(parseInt(route.params.id as string))
+  executeBoxes()
 
-  execute()
+  const { getCards } = useCard()
+  const { data: cards, execute: executeCards } = await getCards();
+  executeCards()
 
-  const items = computed(() => data.value?.box_steps?.map((el: Step) => ({ id: el.order, label: el.interval.toString(), content: el })) as Array<object>)
+  // TODO : remplacer quand l'API retournera les cards avec les box_steps
+  const items = computed(() => data.value?.box_steps?.map((el: Step) => {
+    const random = useTrunc(useMath('random').value * 10).value
+    let boxCards: Array<Card> = []
+    if (cards.value) {
+      const floor = useMath('floor', random / cards.value.length).value
+      if (floor) {
+
+        for (let i = 0; i < floor; i++) {
+          boxCards = [...boxCards, ...cards.value]
+        }
+      } else {
+        for (let i = 0; i < random; i++) {
+          boxCards = [...boxCards, cards.value[i]]
+        }
+      }
+    }
+    return {
+      ...el,
+      cards: boxCards
+    }
+  }) as Array<object>)
 
   const interval = (interval: number) => {
     if (interval >= 30)
@@ -39,7 +62,7 @@
     >
       <template #default="{ item, open }">
         <UButton
-          variant="solid"
+          variant="soft"
           class="border-gray-200 dark:border-gray-700 mb-1.5"
         >
           <template #leading>
@@ -49,8 +72,7 @@
               size="xs"
               :ui="{ rounded: 'rounded-full' }"
             >
-              <!--TODO remplacer par le nombre de cartes-->
-              <span>{{ useMath('trunc', useMath('random').value * 10) }}</span>
+              <span>{{ item.cards.length }}</span>
             </UBadge>
           </template>
 
@@ -64,6 +86,17 @@
             />
           </template>
         </UButton>
+      </template>
+      <template #item="{ item }">
+        <div class="flex flex-nowrap  gap-x-3 mt-3 overflow-y-auto p-2">
+          <NuxtLink
+            v-for="card in item.cards"
+            :key="card.id"
+            :to="`/cards/${card.id}`"
+          >
+            <CardsTile :card="card" />
+          </NuxtLink>
+        </div>
       </template>
     </UAccordion>
   </div>
