@@ -76,7 +76,7 @@
             </UBadge>
           </template>
 
-          <span class="truncate">{{ interval(parseInt(item.label)) }}</span>
+          <span class="truncate">{{ interval(parseInt(item.interval)) }}</span>
 
           <template #trailing>
             <UIcon
