@@ -3,27 +3,81 @@ definePageMeta({
   name: "home",
   layout: "default",
 });
+
+const { t } = useI18n();
+const toast = useToast();
+
+const { user } = useMe();
+
+const { getRevision, revisionCards } = useCard();
+const { error, status, data } = getRevision();
+
+watch(status, (value) => {
+  if (value === "error" && error.value) {
+    toast.add({
+      title: `${error.value.statusCode} - ${error.value.statusMessage}`,
+      color: "red",
+    });
+  }
+
+  if (value === "success") {
+    revisionCards.value = data.value;
+  }
+});
+
+const disableRevision = computed(() => {
+  return revisionCards.value?.length === 0;
+});
 </script>
 
 <template>
-  <UCard class="mt-10">
-    <template #header>
-      <div class="flex justify-between">
-        <h1>Welcome to Nuxt UI Starter</h1>
-        <ColorScheme>
-          <USelect
-            v-model="$colorMode.preference"
-            :options="['system', 'light', 'dark']"
-          />
-        </ColorScheme>
-      </div>
-    </template>
-    <UButton
-      icon="i-heroicons-book-open"
-      to="https://ui.nuxt.com"
-      target="_blank"
-      >Open Nuxt UI Documentation</UButton
+  <div>
+    <UContainer
+      class="min-h-[calc(100vh-4rem)] flex flex-col items-center justify-center gap-y-10"
     >
-    <ExamplesForm class="mt-10" />
-  </UCard>
+      <div class="-mt-20 flex flex-col justify-center items-center gap-y-6">
+        <h1 class="text-center font-bold text-4xl sm:text-5xl">
+          {{ user ? t("welcomeBack") : t("welcomeTo") }}
+          <span class="text-primary">
+            {{ user ? user.username : "CardClimb" }}
+          </span>
+        </h1>
+        <p
+          v-if="user"
+          class="text-lg text-center text-gray-500 dark:text-gray-400"
+          v-html="t('reviewMessage', { number: revisionCards?.length || 0 })"
+        ></p>
+        <p v-else class="text-lg text-center text-gray-500 dark:text-gray-400">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim magnam
+          esse explicabo
+        </p>
+      </div>
+      <div class="flex items-center justify-center gap-x-6 lg:gap-x-16">
+        <NuxtLink to="/cards">
+          <CardImage />
+        </NuxtLink>
+        <div class="flex flex-col items-center gap-y-4">
+          <UButton
+            v-if="user"
+            block
+            :disabled="disableRevision"
+            :to="!disableRevision ? '/review' : ''"
+            icon="i-heroicons-play-20-solid"
+            >{{ t("review") }}</UButton
+          >
+          <UButton
+            v-if="user"
+            block
+            to="/profile"
+            icon="i-heroicons-user-20-solid"
+            >{{ t("profile") }}</UButton
+          >
+          <UButton block to="/blitz" icon="i-heroicons-bolt-20-solid">{{
+            t("blitz")
+          }}</UButton>
+        </div>
+      </div>
+    </UContainer>
+    <UNotifications />
+  </div>
 </template>

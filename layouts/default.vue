@@ -1,44 +1,77 @@
 <script lang="ts" setup>
-const open = ref(false);
+  const { open, close, getState } = useOpen()
+  const { t } = useI18n()
 
-// pour fermer le menu au click
-const click = () => {
-  open.value = false;
-};
-const links = [
-  {
-    label: "Cards",
-    icon: "i-heroicons-inbox-stack",
-    to: "/cards",
-    click,
-  },
-  {
-    label: "Blitz",
-    icon: "i-heroicons-bolt-solid",
-    to: "/blitz",
-    click,
-  },
-  {
-    label: "Profile",
-    icon: "i-heroicons-user",
-    to: "/profile",
-    click,
-  },
-];
+  const router = useRouter();
+  const { isAuthenticated, signout } = useAuth();
+  const handleSignout = async () => {
+    await signout();
+    router.push("/login");
+  };
+
+  // pour fermer le menu au click
+  const click = () => {
+    close()
+  }
+  const links = [
+    {
+      label: 'Cards',
+      icon: 'i-heroicons-inbox-stack-20-solid',
+      to: '/cards',
+      click
+    },
+    {
+      label: 'Blitz',
+      icon: 'i-heroicons-bolt-20-solid',
+      to: '/blitz',
+      click
+    },
+    {
+      label: 'Profile',
+      icon: 'i-heroicons-user-20-solid',
+      to: '/profile',
+      click
+    }
+  ]
 </script>
+
 <template>
   <div>
-    <Header :props-open="open" :links="links" @update:menu="open = $event" />
+    <Header
+      :props-open="getState()"
+      :links=links
+      :is-authenticated="isAuthenticated()"
+      @open="$event == false ? close() : open()"
+      @sign-out="handleSignout()"
+    />
 
     <UContainer>
-      <div v-if="open" class="px-4 sm:px-6 pt-3 lg:hidden">
-        <UVerticalNavigation class="pb-6" :links="links" />
+      <div
+        v-if=getState()
+        class="px-4 sm:px-6 pt-3 lg:hidden"
+      >
+        <UVerticalNavigation
+          class="pb-6"
+          :links="links"
+        />
         <UDivider class="mb-4" />
-        <UButton block to="/signup" @click="click()">Sign Up</UButton>
+        <UButton
+          color="white"
+          block
+          to="/login"
+          @click="isAuthenticated() ? handleSignout() : click()"
+        >{{ isAuthenticated() ? t('signOut') : t('signIn') }}</UButton>
+        <UButton
+          v-if="!isAuthenticated()"
+          block
+          color="primary"
+          to="/signup"
+          @click="click()"
+        >{{ t('signUp') }}</UButton>
       </div>
-      <!-- <div :class="getState() ? 'hidden lg:block ' : 'lg:block'">
+      <div :class="getState() ? 'hidden lg:block ' : 'lg:block'">
         <slot />
-      </div> -->
+      </div>
     </UContainer>
   </div>
 </template>
