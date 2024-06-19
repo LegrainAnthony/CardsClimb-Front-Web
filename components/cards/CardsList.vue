@@ -28,7 +28,21 @@
     :rows="items ?? []"
     :columns="columns"
     @select="navigateTo(`/cards/${$event.id}`)"
-  />
+  >
+    <template #tags-data="{ row }">
+      <div
+        v-if="row.tags.length"
+        class="flex items-center"
+      >
+        <UBadge
+          v-for="tag in row.tags"
+          :key="tag.id"
+          :label="tag.name"
+        />
+      </div>
+      <div v-else>-</div>
+    </template>
+  </UTable>
 </template>
 
 <style></style>

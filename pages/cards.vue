@@ -10,7 +10,7 @@
   executeBoxes();
   executeCards()
 
-  const column = [
+  const columns = [
     {
       key: 'id',
       label: '#'
@@ -28,8 +28,8 @@
       label: t('step')
     },
     {
-      key: 'card_type_id',
-      label: t('type')
+      key: 'tags',
+      label: t('tag')
     },
   ]
 </script>
@@ -43,7 +43,7 @@
       <CardsList
         v-if="$route.name === 'cards___fr' || $route.name === 'cards-boxes-id___fr'"
         :items="cards"
-        :columns="column"
+        :columns="columns"
       />
     </UContainer>
   </div>
