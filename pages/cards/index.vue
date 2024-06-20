@@ -1,10 +1,9 @@
 <script lang="ts" setup>
-  defineProps({
-    boxes: {
-      type: null as unknown as PropType<Array<Box> | null>,
-      default: [],
-    },
-  })
+  
+  const { getBoxes } = useBox();
+  const { data: boxes, execute: executeBoxes } = await getBoxes()
+  executeBoxes();
+
 </script>
 
 <template>

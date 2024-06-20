@@ -2,7 +2,8 @@
   <div>
     <CardsSectionTitle
       :title="`Edition de la boite ${$route.params.id}`"
-      back-to="/cards"
+      :back=true
+      :to="`/cards/boxes/${$route.params.id}`"
     >
     </CardsSectionTitle>
   </div>

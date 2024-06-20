@@ -4,9 +4,13 @@
       type: String,
       required: true
     },
-    backTo: {
+    back: {
+      type: Boolean,
+      default: false
+    },
+    to: {
       type: String,
-      default: ''
+      default: undefined
     }
   })
 
@@ -16,8 +20,9 @@
   <div class="flex justify-between mb-3">
     <div class="flex">
       <BackButton
-        v-if="backTo.length"
-        :back-to="backTo"
+        v-if="back"
+        :back-to="to"
+        @back="$emit('back')"
       />
       <h1 class="lg:text-lg font-medium text-gray-500 dark:text-gray-400">{{ title }}</h1>
     </div>

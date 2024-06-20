@@ -1,14 +1,10 @@
 <script lang="ts" setup>
   const { t } = useI18n()
 
-  const { getBoxes } = useBox();
-  const { data: boxes, execute: executeBoxes } = await getBoxes()
-
   const { getCards } = useCard()
   const { data: cards, execute: executeCards } = await getCards();
-
-  executeBoxes();
   executeCards()
+
 
   const columns = [
     {
@@ -37,7 +33,7 @@
 <template>
   <div>
     <UContainer class="mt-10">
-      <NuxtPage :boxes="boxes" />
+      <NuxtPage />
     </UContainer>
     <UContainer class="mt-20">
       <CardsList

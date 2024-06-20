@@ -2,8 +2,8 @@
   defineProps({
     backTo: {
       type: String,
-      required: true
-    }
+      default: undefined
+    },
   })
 </script>
 
@@ -14,6 +14,7 @@
     variant="ghost"
     icon="i-heroicons-arrow-left"
     :to="backTo"
+    @click="!backTo ? $emit('back') : undefined"
   ></UButton>
 </template>
 

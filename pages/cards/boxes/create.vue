@@ -6,7 +6,8 @@
   <div>
     <CardsSectionTitle
       title="Création d'une boite"
-      back-to="/cards"
+      :back="true"
+      to="/cards"
     >
     </CardsSectionTitle>
   </div>

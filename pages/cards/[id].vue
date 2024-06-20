@@ -5,7 +5,8 @@
   <div>
     <CardsSectionTitle
       :title="`Card ${$route.params.id}`"
-      back-to="/cards"
+      :back="true"
+      @back="$router.back()"
     >
     </CardsSectionTitle>
   </div>

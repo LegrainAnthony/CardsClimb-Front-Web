@@ -6,7 +6,8 @@
   <div>
     <CardsSectionTitle
       title="Création d'une carte"
-      back-to="/cards"
+      :back="true"
+      @back="$router.back()"
     >
     </CardsSectionTitle>
   </div>
