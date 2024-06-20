@@ -28,6 +28,5 @@ export const useCard = () => {
 
     return { data, pending, error, execute };
   };
-
   return { getCards, getRevision, revisionCards };
 };
