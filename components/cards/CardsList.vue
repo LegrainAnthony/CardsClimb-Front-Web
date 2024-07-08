@@ -1,14 +1,8 @@
 <script lang="ts" setup>
-  defineProps({
-    items: {
-      type: null as unknown as PropType<Array<Card> | null>,
-      default: []
-    },
-    columns: {
-      type: Array<{ key: string, label: string }>,
-      required: true
-    }
-  })
+  defineProps<{
+    items: Card[] | null,
+    columns: Array<{ key: string, label: string }>
+  }>()
 
   const { t } = useI18n()
 </script>

@@ -1,10 +1,7 @@
 <script lang="ts" setup>
-  defineProps({
-    boxes: {
-      type: null as unknown as PropType<Array<Box> | null>,
-      default: [],
-    },
-  })
+  defineProps<{
+    boxes: Box[] | null
+  }>()
 
   const { t } = useI18n()
 </script>

@@ -1,10 +1,7 @@
 <script lang="ts" setup>
-  defineProps({
-    backTo: {
-      type: String,
-      default: undefined
-    },
-  })
+  defineProps<{
+    backTo: string | undefined,
+  }>()
 </script>
 
 <template>

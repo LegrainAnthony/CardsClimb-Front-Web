@@ -3,12 +3,10 @@
   const { t } = useI18n()
 
   const { getBoxWithSteps } = useBox()
-  const { data, execute: executeBoxes } = await getBoxWithSteps(parseInt(route.params.id as string))
-  executeBoxes()
+  const { data } = await getBoxWithSteps(parseInt(route.params.id as string))
 
   const { getCards } = useCard()
-  const { data: cards, execute: executeCards } = await getCards();
-  executeCards()
+  const { data: cards } = await getCards();
 
   // TODO : remplacer quand l'API retournera les cards avec les box_steps
   const items = computed(() => data.value?.box_steps?.map((el: Step) => {

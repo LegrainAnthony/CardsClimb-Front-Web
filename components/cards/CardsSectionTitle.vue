@@ -1,17 +1,11 @@
 <script lang="ts" setup>
-  defineProps({
-    title: {
-      type: String,
-      required: true
-    },
-    back: {
-      type: Boolean,
-      default: false
-    },
-    to: {
-      type: String,
-      default: undefined
-    }
+  withDefaults(defineProps<{
+    title: string,
+    back: boolean,
+    to: string | undefined,
+  }>(), {
+    back: false,
+    to: undefined
   })
 
 </script>

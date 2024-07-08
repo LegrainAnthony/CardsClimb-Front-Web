@@ -2,8 +2,7 @@
   const { t } = useI18n()
 
   const { getCards } = useCard()
-  const { data: cards, execute: executeCards } = await getCards();
-  executeCards()
+  const { data: cards } = await getCards();
 
 
   const columns = [

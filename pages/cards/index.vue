@@ -1,8 +1,7 @@
 <script lang="ts" setup>
-  
+
   const { getBoxes } = useBox();
-  const { data: boxes, execute: executeBoxes } = await getBoxes()
-  executeBoxes();
+  const { data: boxes } = await getBoxes()
 
 </script>
 
