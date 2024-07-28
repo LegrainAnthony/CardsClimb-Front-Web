@@ -1,8 +1,13 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+
+  const { getBoxes } = useBox();
+  const { data: boxes } = await getBoxes()
+
+</script>
 
 <template>
   <div>
-    <h1>Card</h1>
+    <CardsBoxList :boxes="boxes" />
   </div>
 </template>
 
