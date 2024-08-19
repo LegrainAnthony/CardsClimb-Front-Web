@@ -3,13 +3,13 @@
   const { t } = useI18n()
 
   const { getBoxWithSteps } = useBox()
-  const { data } = await getBoxWithSteps(parseInt(route.params.id as string))
+  const { data: boxes } = await getBoxWithSteps(parseInt(route.params.id as string))
 
   const { getCards } = useCard()
   const { data: cards } = await getCards();
 
   // TODO : remplacer quand l'API retournera les cards avec les box_steps
-  const items = computed(() => data.value?.box_steps?.map((el: Step) => {
+  const items = computed(() => boxes.value?.box_steps?.map((el: Step) => {
     const random = useTrunc(useMath('random').value * 10).value
     let boxCards: Array<Card> = []
     if (cards.value) {
@@ -43,7 +43,7 @@
 <template>
   <div>
     <CardsSectionTitle
-      :title="data?.name ?? ''"
+      :title="boxes?.name ?? ''"
       :back="true"
       to="/cards"
     >

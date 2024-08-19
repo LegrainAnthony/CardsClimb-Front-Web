@@ -1,4 +1,4 @@
-import { useAuth } from "~/composables/useAuth";
+import { useAuth } from '~/composables/useAuth';
 const { refreshToken, storeTokens } = useAuth();
 
 export default defineNuxtRouteMiddleware(async (to) => {
@@ -6,16 +6,16 @@ export default defineNuxtRouteMiddleware(async (to) => {
   const { data: current, error, execute: fetchUser } = await getCurrentUser();
 
   await fetchUser();
-  if (current.value && to.path === "/login") {
-    return navigateTo({ name: "home" });
+  if (current.value && to.path === '/login') {
+    return navigateTo({ name: 'home' });
   }
 
-  if (!current.value && to.path !== "/login") {
+  if (!current.value && to.path !== '/login') {
     if (
       error.value &&
       error.value.statusCode === 498 &&
-      localStorage.getItem("accessToken") &&
-      localStorage.getItem("refreshToken")
+      localStorage.getItem('accessToken') &&
+      localStorage.getItem('refreshToken')
     ) {
       const { data: tokens } = await refreshToken();
 
@@ -26,6 +26,6 @@ export default defineNuxtRouteMiddleware(async (to) => {
     }
 
     abortNavigation();
-    return navigateTo("/login");
+    return navigateTo('/login');
   }
 });

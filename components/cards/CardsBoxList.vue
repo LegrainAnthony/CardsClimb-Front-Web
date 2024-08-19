@@ -7,7 +7,11 @@
 </script>
 
 <template>
-  <CardsSectionTitle :title="t('boxTitle')">
+  <CardsSectionTitle
+    :title="t('boxTitle')"
+    :back="false"
+    :to="undefined"
+  >
     <UButton
       class="lg:text-sm lg:py-1.5 lg:px-2.5 lg:gap-x-1.5"
       size="2xs"
