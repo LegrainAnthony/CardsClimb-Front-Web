@@ -10,6 +10,21 @@ export interface Card {
   card_type_id: number;
 }
 
+export interface createCard {
+  reference: string;
+  question: string;
+  answer?: string;
+  box_id?: number;
+  box_step_id?: number;
+  cardTypeId: number;
+  tags?: Array<number>;
+}
+
+export interface CardType {
+  id: number;
+  name: string;
+}
+
 export const useCard = () => {
   const getRevision = async () => {
     const { data, pending, error, status, refresh } = await useCardClimbApi<
@@ -34,7 +49,6 @@ export const useCard = () => {
   };
 
   const validateCard = async (id: number, payload: string) => {
-    console.log(id, payload);
     const response = await $fetch<Card>(
       `http://localhost:8080/cards/validate/${id}`,
       {
@@ -62,5 +76,31 @@ export const useCard = () => {
     return response;
   };
 
-  return { getCards, getRevision, validateCard };
+  const createCard = async (payload: createCard) => {
+   const { data, pending, error, execute } = await useCardClimbApi<Card>(
+      'http://localhost:8080/cards',
+      {
+        immediate: true,
+        method: 'POST',
+        body: payload,
+      }
+    );
+
+    return { data, pending, error, execute };   
+  } 
+
+  const getCardsType = async () => {
+    const response = await $fetch(
+      `http://localhost:8080/card-type`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    return response || [] as Array<CardType>;
+  };
+
+  return { getCards, getRevision, validateCard, createCard, getCardsType };
 };

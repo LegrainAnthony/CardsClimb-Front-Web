@@ -1,34 +1,21 @@
 <script setup lang="ts">
-import { object, string } from "yup";
 import { useAuth } from "~/composables/useAuth";
+import { loginSchema } from "~/validation"
+import { useForm } from 'vee-validate';
+import { watch } from 'vue'
 
+const {  values, errors, defineField } = useForm({ validationSchema: loginSchema,});
+
+const [email, emailAttrs] = defineField('email');
+const [password, passwordAttrs] = defineField('password');
 definePageMeta({
   layout: "auth",
 });
-
-const email = ref<string>("");
-const password = ref<string>("");
 
 const { signin, storeTokens } = useAuth();
 const { data, execute, error, status } = await signin(email, password);
 
 const router = useRouter();
-
-// Minimum eight characters, at least one letter, one number and one special character:
-const passwordRegex = new RegExp(
-  "^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"
-);
-
-const schema = object({
-  email: string().email("Invalid email").required("Required"),
-  password: string()
-    .min(8, "Must be at least 8 characters")
-    .matches(passwordRegex, {
-      message:
-        "Must contain at least one letter, one number and one special character",
-    })
-    .required("Required"),
-});
 
 const handleLogin = async () => {
   await execute();
@@ -38,11 +25,19 @@ const handleLogin = async () => {
     router.push("/");
   }
 };
+
+watch(email, () => {
+    console.log(errors);
+    console.log(values);
+})
+ 
+
+
 </script>
 
 <template>
   <UCard class="p-6 max-w-sm w-full">
-    <UForm :schema="schema" :state="{ email, password }" @submit="handleLogin">
+    <UForm :schema="loginSchema" :state="{ email, password }" @submit="handleLogin">
       <div class="flex flex-col space-y-6 items-center">
         <div class="text-center">
           <h2 class="text-lg">Welcome back!</h2>
@@ -57,18 +52,23 @@ const handleLogin = async () => {
             type="email"
             placeholder="Enter your email"
             v-model="email"
+            v-bind="emailAttrs"
+            :color="errors.email ? 'red' : 'primary'"
+            :icon="errors.email ? 'i-heroicons-academic-cap' : undefined "
           />
           <UInput
             label="Password"
             type="password"
             placeholder="Enter your password"
             v-model="password"
+            v-bind="passwordAttrs"
+            :color="errors.password ? 'red' : 'primary'"
           />
         </div>
-
-        <h2 v-if="error" class="text-center text-red-500">
+        <p>{{ errors.password }}</p>
+        <!-- <h2 v-if="error" class="text-center text-red-500">
           {{ error.data.message }}
-        </h2>
+        </h2> -->
         <UButton block type="submit" @click="handleLogin">Continue</UButton>
         <p class="text-xs text-center">
           By signing in, you agree to our

@@ -27,5 +27,14 @@ export const useBox = () => {
     return { data, pending, error, execute };
   };
 
-  return { getBoxes, getBoxWithSteps };
+  const getBoxStepFromBox = async (boxId: number) => {
+  const { data, pending, error, execute } = await useCardClimbApi<Array<Step>>(
+      `http://localhost:8080/boxstep/list?boxId=${boxId}`,
+      {}
+    );
+
+    return { data, pending, error, execute };
+  }
+
+  return { getBoxes, getBoxWithSteps, getBoxStepFromBox };
 };

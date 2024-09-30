@@ -5,7 +5,7 @@
       :back=true
       :to="`/cards/boxes/${$route.params.id}`"
     >
-    </CardsSectionTitle>
+    </CardsSectionTitle>``
   </div>
 </template>
 
